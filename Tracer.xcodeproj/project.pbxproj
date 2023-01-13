@@ -17,6 +17,7 @@
 		3E6442B32972181300E0B22B /* TracerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442B22972181300E0B22B /* TracerUITestsLaunchTests.swift */; };
 		3E6442C02972209000E0B22B /* BufferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442BF2972209000E0B22B /* BufferView.swift */; };
 		3E6442C42972210B00E0B22B /* BlitKernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442C32972210B00E0B22B /* BlitKernel.metal */; };
+		3E6442C72972229800E0B22B /* BasicSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442C62972229800E0B22B /* BasicSample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		3E6442B22972181300E0B22B /* TracerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3E6442BF2972209000E0B22B /* BufferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferView.swift; sourceTree = "<group>"; };
 		3E6442C32972210B00E0B22B /* BlitKernel.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BlitKernel.metal; sourceTree = "<group>"; };
+		3E6442C62972229800E0B22B /* BasicSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				3E64428F2972181100E0B22B /* AppDelegate.swift */,
 				3E6442912972181100E0B22B /* GameViewController.swift */,
 				3E6442932972181100E0B22B /* Renderer.swift */,
+				3E6442C52972228A00E0B22B /* samples */,
 				3E6442BF2972209000E0B22B /* BufferView.swift */,
 				3E6442982972181300E0B22B /* Assets.xcassets */,
 				3E64429A2972181300E0B22B /* Main.storyboard */,
@@ -128,6 +131,14 @@
 				3E6442B22972181300E0B22B /* TracerUITestsLaunchTests.swift */,
 			);
 			path = TracerUITests;
+			sourceTree = "<group>";
+		};
+		3E6442C52972228A00E0B22B /* samples */ = {
+			isa = PBXGroup;
+			children = (
+				3E6442C62972229800E0B22B /* BasicSample.swift */,
+			);
+			path = samples;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +273,7 @@
 			files = (
 				3E6442C02972209000E0B22B /* BufferView.swift in Sources */,
 				3E6442922972181100E0B22B /* GameViewController.swift in Sources */,
+				3E6442C72972229800E0B22B /* BasicSample.swift in Sources */,
 				3E6442C42972210B00E0B22B /* BlitKernel.metal in Sources */,
 				3E6442942972181100E0B22B /* Renderer.swift in Sources */,
 				3E6442902972181100E0B22B /* AppDelegate.swift in Sources */,

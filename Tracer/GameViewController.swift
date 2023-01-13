@@ -27,13 +27,20 @@ class GameViewController: NSViewController {
         }
         
         mtkView.device = defaultDevice
+        self.mtkView = mtkView
         
+        if let renderer = createRenderer() {
+            mtkView.delegate = renderer
+            renderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
+            self.renderer = renderer
+        }
+    }
+    
+    func createRenderer() -> Renderer? {
         guard let newRenderer = Renderer(metalKitView: mtkView) else {
             print("Renderer cannot be initialized")
-            return
+            return nil
         }
-        mtkView.delegate = newRenderer
-        newRenderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
-        renderer = newRenderer
+        return newRenderer
     }
 }

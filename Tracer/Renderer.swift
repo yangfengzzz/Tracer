@@ -17,6 +17,7 @@ class Renderer: NSObject, MTKViewDelegate {
     let pipelineState: MTLComputePipelineState
     var buffer: [Color] = []
     var bufferView: BufferView!
+    var isResized: Bool = false
     
     init?(metalKitView: MTKView) {
         device = metalKitView.device!
@@ -41,8 +42,11 @@ class Renderer: NSObject, MTKViewDelegate {
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
             if let renderTarget = view.currentRenderPassDescriptor,
                let texture = renderTarget.colorAttachments[0].texture {
-                update(texture.width, texture.height)
-                bufferView.assign(with: buffer)
+                if isResized {
+                    update(texture.width, texture.height)
+                    bufferView.assign(with: buffer)
+                    isResized = false
+                }
                 
                 if let encoder = commandBuffer.makeComputeCommandEncoder() {
                     encoder.setComputePipelineState(pipelineState)
@@ -69,6 +73,7 @@ class Renderer: NSObject, MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         buffer = [Color](repeating: Color(), count: Int(size.width * size.height))
         bufferView = BufferView(device: device, array: buffer)
+        isResized = true
     }
     
     /// update tracer buffer
