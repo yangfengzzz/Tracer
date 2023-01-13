@@ -10,6 +10,7 @@ import MetalKit
 // Our macOS specific view controller
 class GameViewController: NSViewController {
     var mtkView: MTKView!
+    var renderer: Renderer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,5 +33,7 @@ class GameViewController: NSViewController {
             return
         }
         mtkView.delegate = newRenderer
+        newRenderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
+        renderer = newRenderer
     }
 }

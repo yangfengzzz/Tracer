@@ -12,15 +12,25 @@ typealias Color = SIMD4<Float>
 
 class Renderer: NSObject, MTKViewDelegate {
     public let device: MTLDevice
+    let library: MTLLibrary
     let commandQueue: MTLCommandQueue
+    let pipelineState: MTLComputePipelineState
     var buffer: [Color] = []
+    var bufferView: BufferView!
     
     init?(metalKitView: MTKView) {
-        self.device = metalKitView.device!
-        self.commandQueue = self.device.makeCommandQueue()!
+        device = metalKitView.device!
+        library = device.makeDefaultLibrary()!
+        commandQueue = device.makeCommandQueue()!
         
-        metalKitView.colorPixelFormat = MTLPixelFormat.rgba32Float
+        metalKitView.colorPixelFormat = MTLPixelFormat.rgba16Float
         metalKitView.sampleCount = 1
+        metalKitView.framebufferOnly = false
+        do {
+            pipelineState = try device.makeComputePipelineState(function: library.makeFunction(name: "blit")!)
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
         
         super.init()
     }
@@ -32,8 +42,19 @@ class Renderer: NSObject, MTKViewDelegate {
             if let renderTarget = view.currentRenderPassDescriptor,
                let texture = renderTarget.colorAttachments[0].texture {
                 update(texture.width, texture.height)
-                texture.replace(region: MTLRegionMake2D(0, 0, texture.width, texture.height), mipmapLevel: 0,
-                                withBytes: buffer, bytesPerRow: MemoryLayout<Color>.stride * texture.width)
+                bufferView.assign(with: buffer)
+                
+                if let encoder = commandBuffer.makeComputeCommandEncoder() {
+                    encoder.setComputePipelineState(pipelineState)
+                    encoder.setTexture(texture, index: 0)
+                    encoder.setBuffer(bufferView.buffer, offset: 0, index: 0)
+                    
+                    let nWidth = min(texture.width, pipelineState.threadExecutionWidth)
+                    let nHeight = min(texture.height, pipelineState.maxTotalThreadsPerThreadgroup / nWidth)
+                    encoder.dispatchThreads(MTLSize(width: texture.width, height: texture.height, depth: 1),
+                                            threadsPerThreadgroup: MTLSize(width: nWidth, height: nHeight, depth: 1))
+                    encoder.endEncoding()
+                }
             }
             
             ///   holding onto the drawable and blocking the display pipeline any longer than necessary
@@ -47,10 +68,11 @@ class Renderer: NSObject, MTKViewDelegate {
     /// Respond to drawable size or orientation changes here
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         buffer = [Color](repeating: Color(), count: Int(size.width * size.height))
+        bufferView = BufferView(device: device, array: buffer)
     }
     
     /// update tracer buffer
     func update(_ width: Int, _ height: Int) {
-        buffer = [Color](repeating: Color(0.5, 0, 0, 1), count: width * height)
+        buffer = [Color](repeating: Color(1.0, 0, 0, 1.0), count: width * height)
     }
 }
