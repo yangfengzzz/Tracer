@@ -10,7 +10,6 @@
 		3E6442902972181100E0B22B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E64428F2972181100E0B22B /* AppDelegate.swift */; };
 		3E6442922972181100E0B22B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442912972181100E0B22B /* GameViewController.swift */; };
 		3E6442942972181100E0B22B /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442932972181100E0B22B /* Renderer.swift */; };
-		3E6442962972181100E0B22B /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442952972181100E0B22B /* Shaders.metal */; };
 		3E6442992972181300E0B22B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6442982972181300E0B22B /* Assets.xcassets */; };
 		3E64429C2972181300E0B22B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E64429A2972181300E0B22B /* Main.storyboard */; };
 		3E6442A72972181300E0B22B /* TracerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6442A62972181300E0B22B /* TracerTests.swift */; };
@@ -40,8 +39,6 @@
 		3E64428F2972181100E0B22B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E6442912972181100E0B22B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		3E6442932972181100E0B22B /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
-		3E6442952972181100E0B22B /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		3E6442972972181100E0B22B /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
 		3E6442982972181300E0B22B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E64429B2972181300E0B22B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E64429D2972181300E0B22B /* Tracer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tracer.entitlements; sourceTree = "<group>"; };
@@ -103,8 +100,6 @@
 				3E64428F2972181100E0B22B /* AppDelegate.swift */,
 				3E6442912972181100E0B22B /* GameViewController.swift */,
 				3E6442932972181100E0B22B /* Renderer.swift */,
-				3E6442952972181100E0B22B /* Shaders.metal */,
-				3E6442972972181100E0B22B /* ShaderTypes.h */,
 				3E6442982972181300E0B22B /* Assets.xcassets */,
 				3E64429A2972181300E0B22B /* Main.storyboard */,
 				3E64429D2972181300E0B22B /* Tracer.entitlements */,
@@ -259,7 +254,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E6442962972181100E0B22B /* Shaders.metal in Sources */,
 				3E6442922972181100E0B22B /* GameViewController.swift in Sources */,
 				3E6442942972181100E0B22B /* Renderer.swift in Sources */,
 				3E6442902972181100E0B22B /* AppDelegate.swift in Sources */,
@@ -446,7 +440,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = archegraphics.Tracer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -474,7 +468,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = archegraphics.Tracer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(TARGET_NAME)/ShaderTypes.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
