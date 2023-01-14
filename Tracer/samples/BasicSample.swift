@@ -45,11 +45,11 @@ class BasicSample: Renderer {
     }
     
     override func update(_ width: Int, _ height: Int) {
-        for i in 0..<width {
-            for j in 0..<height {
-                let result = sample(Float(i) / Float(width), Float(j) / Float(height))
-                buffer[i + j * width] = Color(x: result, y: result, z: result, w: 1.0)
-            }
+        DispatchQueue.concurrentPerform(iterations: width * height) { (index:Int) in
+            var i: Int = index % width
+            var j: Int = index / width
+            let result = sample(Float(i) / Float(width), Float(j) / Float(height))
+            buffer[index] = Color(x: result, y: result, z: result, w: 1.0)
         }
     }
 }
