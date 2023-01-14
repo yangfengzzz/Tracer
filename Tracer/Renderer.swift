@@ -10,14 +10,14 @@ import simd
 
 typealias Color = SIMD4<Float>
 
-class Renderer: NSObject, MTKViewDelegate {
+open class Renderer: NSObject, MTKViewDelegate {
     public let device: MTLDevice
     let library: MTLLibrary
     let commandQueue: MTLCommandQueue
     let pipelineState: MTLComputePipelineState
     var buffer: [Color] = []
     var bufferView: BufferView!
-    var isResized: Bool = false
+    var shouldUpdate: Bool = false
     
     init?(metalKitView: MTKView) {
         device = metalKitView.device!
@@ -37,15 +37,14 @@ class Renderer: NSObject, MTKViewDelegate {
     }
     
     /// Per frame updates hare
-    func draw(in view: MTKView) {
+    public func draw(in view: MTKView) {
         if let commandBuffer = commandQueue.makeCommandBuffer() {
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
             if let renderTarget = view.currentRenderPassDescriptor,
                let texture = renderTarget.colorAttachments[0].texture {
-                if isResized {
+                if shouldUpdate {
                     update(texture.width, texture.height)
                     bufferView.assign(with: buffer)
-                    isResized = false
                 }
                 
                 if let encoder = commandBuffer.makeComputeCommandEncoder() {
@@ -70,10 +69,10 @@ class Renderer: NSObject, MTKViewDelegate {
     }
 
     /// Respond to drawable size or orientation changes here
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+    public func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         buffer = [Color](repeating: Color(), count: Int(size.width * size.height))
         bufferView = BufferView(device: device, array: buffer)
-        isResized = true
+        shouldUpdate = true
     }
     
     /// update tracer buffer
