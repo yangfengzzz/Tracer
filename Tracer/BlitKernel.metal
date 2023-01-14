@@ -9,6 +9,7 @@ using namespace metal;
 
 kernel void blit(texture2d<float, access::write> out [[texture(0)]],
                  device float4* color [[buffer(0)]],
-                 uint3 tpig [[ thread_position_in_grid ]]) {
-    out.write(color[0], tpig.xy);
+                 uint3 tpig [[ thread_position_in_grid ]],
+                 uint3 gridSize [[threads_per_grid]]) {
+    out.write(color[tpig.x + tpig.y * gridSize.x], tpig.xy);
 }

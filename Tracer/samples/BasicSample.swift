@@ -8,9 +8,7 @@ import Foundation
 
 class BasicSample: Renderer {
     let TWO_PI : Float = 6.28318530718
-    let W = 512
-    let H = 512
-    let N = 64
+    let N = 1
     let MAX_STEP = 10
     let MAX_DISTANCE : Float = 2.0
     let EPSILON : Float = 1e-6
@@ -50,7 +48,7 @@ class BasicSample: Renderer {
         for i in 0..<width {
             for j in 0..<height {
                 let result = sample(Float(i) / Float(width), Float(j) / Float(height))
-                buffer[i * height + j] = Color(x: result, y: result, z: result, w: 1.0)
+                buffer[i + j * width] = Color(x: result, y: result, z: result, w: 1.0)
             }
         }
     }
